@@ -1,0 +1,70 @@
+﻿@using BookingApp.Models
+@model IEnumerable<Book>
+@{
+    ViewBag.Title = "Books shop";
+}
+<div>
+    <h3>Books sell</h3>
+    <table>
+<tr>    
+<td>Name of Books</td>
+    <td>Autor</td>
+    <td>Price</td>
+    <td></td>
+</tr>
+@foreach (Book i in Model)
+{
+    <tr>
+        <td><p>@i.Name</p></td>
+        <td><p>@i.Author</p></td>
+        <td><p>@i.Price</p></td>
+        <td><p><a href="/Home/Buy/@i.id">Kupic</a></p></td>
+    </tr>
+}
+</table>
+</div>
+@helper BookList(IEnumerable<Book> Books) { 
+    <ul>
+        @foreach (Book b in Books) {
+            <li>@b.Name</li>
+        }
+    </ul>
+    }
+@{ string[] city = {"Moscow", "Warsaw" };}
+    @using BookingApp.Helpers
+<h3>List of books</h3>
+@Html.CreateList(city)
+@BookList(Model)
+@Html.Partial("GetList")
+<div>
+    <h3>Offer form</h3>
+    @using (Html.BeginForm("Save_book", "Home", FormMethod.Post))
+    {
+        @Html.Label( "Name of book")
+        <br />
+        @Html.TextBox("Name","Book name")
+        <br /><br />
+            @Html.Label("Name of author")
+            <br />
+            @Html.TextBox("Author", "Author name")
+            <br /><br />
+            @Html.Label("Price")
+            <br />
+            @Html.TextBox("Price", "Price")
+            <br /><br />
+            <p><input type="submit" value="Send" /></p>
+    }
+    <div>
+        @using (Ajax.BeginForm("BookSearch", new AjaxOptions { UpdateTargetId = "results" ,LoadingElementId="loading",LoadingElementDuration=1000}))
+        {
+            <input type="text" name="name" />
+            <input type="submit" value="Search" />
+        }
+        <div id="loading" style="display:none; color:Red; font-weight:bold;">
+            <p>Идет загрузка...</p>
+        </div>
+        <div id="results"></div>
+    </div>
+    @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
+</div>

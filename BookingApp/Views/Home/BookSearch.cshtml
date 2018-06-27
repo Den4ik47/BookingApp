@@ -1,0 +1,11 @@
+﻿@model IEnumerable<BookingApp.Models.Book>
+
+<div id="searchresults">
+    <h3>All Books : @Model.First().Author</h3>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>@item.Name</li>
+        }
+    </ul>
+</div>

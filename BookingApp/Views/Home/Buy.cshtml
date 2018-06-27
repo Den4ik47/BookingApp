@@ -1,0 +1,30 @@
+﻿@model BookingApp.Models.Purchase
+@{
+    ViewBag.Title = "Buy";
+}
+<div>
+    <h3>Forma zakupu</h3>
+   @{
+       Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h3>Offers Form</h3>
+    @using (Html.BeginForm("Buy", "Home", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.Book_id)
+        @Html.LabelFor(m => m.Person, "Введите свое имя")
+        <br />
+            @Html.TextBoxFor(m => m.Person)
+            <br /><br />
+            @Html.LabelFor(m => m.Adress, "Введите адрес")
+            <br />
+            @Html.TextBoxFor(m => m.Adress)
+            <p><input type="submit" value="Send" /></p>
+    }
+</div>
+    </div>
+
+
+
+
